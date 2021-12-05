@@ -13,16 +13,18 @@ gem 'slim', '~> 5.0'
 
 # APPLICATION LAYER
 # Web application related
-gem 'multi_json', '~> 1.15'
 gem 'puma', '~> 6.0'
 gem 'rack-session', '~> 0.3'
-gem 'roar', '~> 1.0'
 gem 'roda', '~> 3.0'
 
 # Controllers and services
 gem 'dry-monads', '~> 1.4'
 gem 'dry-transaction', '~> 0.13'
 gem 'dry-validation', '~> 1.7'
+
+# Representers
+gem 'multi_json', '~> 1.15'
+gem 'roar', '~> 1.0'
 
 # INFRASTRUCTURE LAYER
 # Networking
