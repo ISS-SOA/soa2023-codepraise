@@ -9,7 +9,6 @@ AllCops:
     - '**/*.rb'
   Exclude:
     - '_snippets/**/*'
-    - 'repostore/**/*'
 
 # Ignore block length where unavoidable (e.g., frameworks using blocks)
 Metrics/BlockLength:
@@ -39,7 +38,6 @@ Style/SymbolArray:
   Enabled: true
   Exclude:
     - Rakefile
-    - app/infrastructure/database/migrations/*.rb
 
 Naming/RescuedExceptionsVariableName:
   Enabled: false
