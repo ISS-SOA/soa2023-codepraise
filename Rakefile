@@ -12,7 +12,7 @@ task spec: ['spec:default']
 
 desc 'Keep rerunning unit/integration tests upon changes'
 task :respec do
-  sh "rerun -c 'rake spec' --ignore 'coverage/*' --ignore 'repostore/*'"
+  sh "rerun -c 'rake spec' --ignore 'coverage/*'"
 end
 
 # NOTE: run `rake run:test` in another process
@@ -36,12 +36,12 @@ task run: ['run:dev']
 namespace :run do
   desc 'Run the application in development mode'
   task :dev do
-    sh "rerun -c --ignore 'coverage/*' --ignore 'repostore/*' -- bundle exec puma"
+    sh "rerun -c --ignore 'coverage/*' -- bundle exec puma -p 9292"
   end
 
   desc 'Run the application in test mode'
   task :test do
-    sh "rerun -c --ignore 'coverage/*' --ignore 'repostore/*' -- bundle exec puma -p 9000"
+    sh "rerun -c --ignore 'coverage/*' -- bundle exec puma -p 9000"
   end
 end
 
