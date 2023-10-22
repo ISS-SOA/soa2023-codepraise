@@ -1,2 +1,4 @@
-config/secrets.yml
 _snippets/
+config/secrets.yml
+coverage/*
+!coverage/.resultset.json
