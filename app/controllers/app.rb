@@ -13,7 +13,7 @@ module CodePraise
     plugin :common_logger, $stderr
     plugin :halt
 
-    route do |routing| # rubocop:disable Metrics/BlockLength
+    route do |routing|
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
       routing.public
@@ -24,7 +24,7 @@ module CodePraise
         view 'home', locals: { projects: }
       end
 
-      routing.on 'project' do # rubocop:disable Metrics/BlockLength
+      routing.on 'project' do
         routing.is do
           # POST /project/
           routing.post do
@@ -55,7 +55,7 @@ module CodePraise
 
             # Clone remote repo from project information
             gitrepo = GitRepo.new(project)
-            gitrepo.clone! unless gitrepo.exists_locally?
+            gitrepo.clone unless gitrepo.exists_locally?
 
             # Compile contributions for folder specified in route path
             path = request.remaining_path
@@ -64,7 +64,7 @@ module CodePraise
               .new(gitrepo).for_folder(folder_name)
 
             # Show viewer the project
-            view 'project', locals: { project: project, folder: folder }
+            view 'project', locals: { project:, folder: }
           end
         end
       end

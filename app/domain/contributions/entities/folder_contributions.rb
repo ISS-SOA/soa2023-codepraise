@@ -58,9 +58,11 @@ module CodePraise
       end
 
       def subfolder_contributions
-        subfolder_files.map do |folder_name, folder_files|
+        folder_contribs = subfolder_files.map do |folder_name, folder_files|
           FolderContributions.new(path: folder_name, files: folder_files)
-        end.each { |folder| self[folder.path] = folder }
+        end
+
+        folder_contribs.each { |folder| self[folder.path] = folder }
       end
     end
   end

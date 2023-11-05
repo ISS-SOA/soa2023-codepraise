@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/Documentation
-# rubocop:disable Layout/EmptyLineBetweenDefs
 module CodePraise
   module Value
     module CodeLanguage
@@ -11,7 +10,7 @@ module CodePraise
       module LanguageMethods
         attr_reader :code
 
-        def initialize(code)
+        def setup_code(code)
           @code = code
         end
 
@@ -26,59 +25,69 @@ module CodePraise
 
       class Ruby
         include LanguageMethods
-        def self.lang_name() = 'Ruby'
+
+        def initialize(code) = setup_code(code)
         COMMENT = '[#\/]'
         USELESS = /^#{WHITESPACE}*(#{COMMENT}|#{LINE_END})/
       end
 
       class Python
         include LanguageMethods
-        def self.lang_name() = 'Python'
+
+        def initialize(code) = setup_code(code)
         COMMENT = '[#\/]'
         USELESS = /^#{WHITESPACE}*(#{COMMENT}|#{LINE_END})/
       end
 
       class Javascript
         include LanguageMethods
-        def self.lang_name() = 'Javascript'
+
+        def initialize(code) = setup_code(code)
         COMMENT = '//'
         USELESS = /^#{WHITESPACE}*(#{COMMENT}|#{LINE_END})/
       end
 
       class Html
         include LanguageMethods
-        def self.lang_name() = 'HTML'
+
+        def initialize(code) = setup_code(code)
         USELESS = /^#{WHITESPACE}*#{LINE_END}/
       end
 
       class Erb
         include LanguageMethods
-        def self.lang_name() = 'ERB'
+
+        def initialize(code) = setup_code(code)
         USELESS = /^#{WHITESPACE}*#{LINE_END}/
       end
 
       class Slim
         include LanguageMethods
-        def self.lang_name() = 'Slim'
+
+        def initialize(code) = setup_code(code)
         USELESS = /^#{WHITESPACE}*#{LINE_END}/
       end
 
       class Css
         include LanguageMethods
-        def self.lang_name() = 'CSS'
+
+        def initialize(code) = setup_code(code)
         USELESS = /^#{WHITESPACE}*#{LINE_END}/
       end
 
       class Markdown
         include LanguageMethods
-        def self.lang_name() = 'Markdown'
+
+        def initialize(code) = setup_code(code)
         USELESS = /^#{WHITESPACE}*#{LINE_END}/
       end
 
       class Unknown
         include LanguageMethods
-        def useless?() = true
-        def self.lang_name() = 'not recognized'
+
+        def initialize(code) = setup_code(code)
+        def useless? = true
+        def self.lang_name = 'not recognized'
       end
 
       LANGUAGE_EXTENSION = {
@@ -99,5 +108,4 @@ module CodePraise
     end
   end
 end
-# rubocop:enable Layout/EmptyLineBetweenDefs
 # rubocop:enable Style/Documentation

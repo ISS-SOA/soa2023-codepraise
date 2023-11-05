@@ -10,19 +10,26 @@ module CodePraise
 
       def for_folder(folder_name)
         blame = Git::BlameReporter.new(@gitrepo, folder_name).folder_report
-
         Mapper::FolderContributions.new(
           folder_name,
-          parse_file_reports(blame)
+          BlameReports.new(blame).parse
         ).build_entity
       end
+    end
 
-      def parse_file_reports(blame_output)
-        blame_output.map do |file_blame|
-          name  = file_blame[0]
-          blame = BlamePorcelain.parse_file_blame(file_blame[1])
-          [name, blame]
-        end.to_h
+    BlameReports = Struct.new(:blame_output) do
+      def parse
+        blame_output.to_h do |file_blame|
+          BlameReport.new(file_blame).parse
+        end
+      end
+    end
+
+    BlameReport = Struct.new(:file_blame) do
+      def parse
+        name  = file_blame[0]
+        blame = BlamePorcelain.parse_file_blame(file_blame[1])
+        [name, blame]
       end
     end
   end

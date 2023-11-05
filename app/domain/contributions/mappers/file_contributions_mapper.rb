@@ -46,6 +46,7 @@ module CodePraise
       end
     end
 
+    # Summarizes a single line's contribution by a team member
     class LineContribution
       def initialize(line_report, line_index, language)
         @line_report = line_report

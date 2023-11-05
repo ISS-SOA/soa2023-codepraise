@@ -20,8 +20,8 @@ module CodePraise
     end
 
     # Deliberately :reek:MissingSafeMethod for file system changes
-    def delete!
-      @local.delete!
+    def delete
+      @local.delete
     end
 
     def exists_locally?
@@ -29,7 +29,7 @@ module CodePraise
     end
 
     # Deliberately :reek:MissingSafeMethod for file system changes
-    def clone!
+    def clone
       raise Errors::TooLargeToClone if @repo.too_large?
       raise Errors::CannotOverwriteLocalGitRepo if exists_locally?
 

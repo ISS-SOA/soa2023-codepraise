@@ -48,7 +48,7 @@ module CodePraise
       end
 
       # Deliberately :reek:MissingSafeMethod delete
-      def delete!
+      def delete
         FileUtils.rm_rf(@git_repo_path)
       end
 
