@@ -20,3 +20,8 @@ USERNAME = 'soumyaray'
 PROJECT_NAME = 'YPBT-app'
 GITHUB_TOKEN = CodePraise::App.config.GITHUB_TOKEN
 CORRECT = YAML.safe_load_file('spec/fixtures/github_results.yml')
+
+# Helper method for acceptance tests
+def homepage
+  CodePraise::App.config.APP_HOST
+end
