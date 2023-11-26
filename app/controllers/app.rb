@@ -18,6 +18,8 @@ module CodePraise
 
     use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
+    MSG_GET_STARTED = 'Add a Github project to get started'
+
     route do |routing|
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
@@ -34,19 +36,15 @@ module CodePraise
 
         session[:watching] = projects.map(&:fullname)
 
-        if projects.none?
-          flash.now[:notice] = 'Add a Github project to get started'
-        end
-
+        flash.now[:notice] = MSG_GET_STARTED if projects.none?
         viewable_projects = Views::ProjectsList.new(projects)
-
         view 'home', locals: { projects: viewable_projects }
       end
 
       routing.on 'project' do
         routing.is do
           # POST /project/
-          routing.post do # rubocop:disable Metrics/BlockLength
+          routing.post do
             gh_url = routing.params['github_url']
             unless (gh_url.include? 'github.com') &&
                    (gh_url.split('/').count == 5)
@@ -90,7 +88,7 @@ module CodePraise
           end
         end
 
-        routing.on String, String do |owner_name, project_name| # rubocop:disable Metrics/BlockLength
+        routing.on String, String do |owner_name, project_name|
           # DELETE /project/{owner_name}/{project_name}
           routing.delete do
             fullname = "#{owner_name}/#{project_name}"
